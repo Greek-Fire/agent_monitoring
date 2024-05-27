@@ -1,2 +1,2 @@
 # Matches agent_monitoring.gemspec
-_('TODO: Description of ForemanPluginTemplate.')
+_('TODO: Description of AgentMonitoring.')

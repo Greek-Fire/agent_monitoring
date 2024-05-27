@@ -1,4 +1,4 @@
 require 'agent_monitoring/engine'
 
-module ForemanPluginTemplate
+module AgentMonitoring
 end

@@ -1,4 +1,4 @@
-# ForemanPluginTemplate
+# AgentMonitoring
 
 *Introdction here*
 

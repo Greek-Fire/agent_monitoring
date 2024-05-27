@@ -12,7 +12,7 @@ end
 
 # Tests
 namespace :test do
-  desc 'Test ForemanPluginTemplate'
+  desc 'Test AgentMonitoring'
   Rake::TestTask.new(:agent_monitoring) do |t|
     test_dir = File.expand_path('../../test', __dir__)
     t.libs << 'test'
@@ -28,9 +28,9 @@ namespace :agent_monitoring do
     begin
       require 'rubocop/rake_task'
       RuboCop::RakeTask.new(:rubocop_agent_monitoring) do |task|
-        task.patterns = ["#{ForemanPluginTemplate::Engine.root}/app/**/*.rb",
-                         "#{ForemanPluginTemplate::Engine.root}/lib/**/*.rb",
-                         "#{ForemanPluginTemplate::Engine.root}/test/**/*.rb"]
+        task.patterns = ["#{AgentMonitoring::Engine.root}/app/**/*.rb",
+                         "#{AgentMonitoring::Engine.root}/lib/**/*.rb",
+                         "#{AgentMonitoring::Engine.root}/test/**/*.rb"]
       end
     rescue
       puts 'Rubocop not loaded.'
