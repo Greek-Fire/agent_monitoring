@@ -33,11 +33,10 @@ module AgentMonitoring
         role 'AgentMonitoring', [:view_agent_monitoring]
 
         # add menu entry
-        #menu :top_menu, :agents, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu
+        menu :top_menu, :agents, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu
           sub_menu :agent_monitoring, :inner_level, caption: N_('Agents Monitoring'), url_hash: { controller: 'agent_monitoring/example', action: 'new_action' } do
             menu :agents_one, caption: N_('Agents One'), url_hash: { controller: 'agent_monitoring/example', action: 'new_action' }
           end
-          menu :top_menu, :agents, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu
 
         # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
