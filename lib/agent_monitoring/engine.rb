@@ -33,7 +33,10 @@ module AgentMonitoring
         role 'AgentMonitoring', [:view_agent_monitoring]
 
         # add menu entry
-        sub_menu :top_menu, :hallas, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu
+        sub_menu :top_menu, :hallas, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
+          menu :top_menu, :agent_monitoring, caption: N_('Agent Monitoring')
+          menu :top_menu, :agent1, caption: N_('Agent One'), :parent => :agent_monitoring
+        end
 
         # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
