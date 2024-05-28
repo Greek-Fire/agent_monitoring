@@ -37,7 +37,7 @@ module AgentMonitoring
         end
 
         menu :top_menu, :hallas, :caption => N_('Agent Monitoring'),
-          :url_hash => { :controller => :scap_contents, :action => :index },
+          #:url_hash => { :controller => :scap_contents, :action => :index },
           :parent => :hallas
 
         # add dashboard widget
