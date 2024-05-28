@@ -33,22 +33,11 @@ module AgentMonitoring
         role 'AgentMonitoring', [:view_agent_monitoring]
 
         # add menu entry
-        #sub_menu :top_menu, :plugin_template, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
-        #  menu :top_menu, :welcome, caption: N_('Agents Monitoring'), engine: AgentMonitoring::Engine
-        #  menu :top_menu, :new_action, caption: N_('Agents'), engine: AgentMonitoring::Engine
-        #end
-
-        sub_menu :top_menu, :example, :caption=> N_('Example'), :after=> :hosts_menu do
-          menu :top_menu, :level1, :caption=>N_('the first level'), :url_hash => {:controller=> :example, :action=>:index}
-          menu :top_menu, :level2 #, :url_hash => {:controller=> :example, :action=>:index}
-          menu :top_menu, :level3 #, :url_hash => {:controller=> :example, :action=>:index}
-          sub_menu :top_menu, :inner_level, :caption=> N_('Inner level') do
-            menu :top_menu, :level41 #, :url_hash => {:controller=> :example, :action=>:index}
-            menu :top_menu, :level42 #, :url_hash => {:controller=> :example, :action=>:index}
-          end
-          menu :top_menu, :level5 #, :url_hash => {:controller=> :example} #, :action=>:index}
-        end
-       
+        sub_menu :top_menu, :plugin_template, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
+          menu :top_menu, :welcome, caption: N_('Agents Monitoring'), engine: AgentMonitoring::Engine
+          sub_menu :top_menu :inner_level, caption: N_('Agents'), engine: AgentMonitoring::Engine
+          #menu :top_menu, :new_action, caption: N_('Agents'), engine: AgentMonitoring::Engine
+        end       
 
         # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
