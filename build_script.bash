@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export USER=foreman
+
 # Check if user is root
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
@@ -35,26 +37,41 @@ sudo systemctl enable postgresql
 sudo systemctl start postgresql
 
 # Create foreman user
-if ! id "foreman" &>/dev/null; then
-  sudo adduser --disabled-password --gecos "" foreman
+if ! id "$USER" &>/dev/null; then
+  sudo adduser --disabled-password --gecos "" $USER
 fi
 
 # Install Bundler
 gem install bundler
 
+# Check if the line is already in .bashrc before adding it
+if ! grep -qxF 'export BUNDLE_PATH=/home/$USER/foreman/vendor/bundle' /home/$USER/.bashrc; then
+    echo "export BUNDLE_PATH=/home/$USER/foreman/vendor/bundle" | tee -a /home/$USER/.bashrc
+fi
+
+if ! grep -qxF 'export BIND=10.0.2.15' /home/$USER/.bashrc; then
+    echo "export BIND=10.0.2.15" | tee -a /home/$USER/.bashrc
+fi
+
+if ! grep -qxF "export WEBPACK_OPTS=\"--host \$BIND\"" /home/$USER/.bashrc; then
+    echo 'export WEBPACK_OPTS="--host $BIND"' | tee -a /home/$USER/.bashrc
+fi
+
+source /home/$USER/.bashrc
+
 # Configure PostgreSQL
 sudo -u postgres psql -c "CREATE ROLE foreman WITH LOGIN SUPERUSER PASSWORD 'redhat';"
 
 # Clone Foreman repository
-sudo -u foreman -H git clone https://github.com/theforeman/foreman.git /home/foreman/foreman
-cd /home/foreman/foreman
+sudo -u $USER -H git clone https://github.com/theforeman/foreman.git /home/$USER/foreman
+cd /home/$USER/foreman
 
 sudo -u postgres psql -c "CREATE ROLE foreman WITH LOGIN SUPERUSER PASSWORD 'redhat';"
-sudo -u foreman -H bundle config set --local path 'vendor/bundle'
-sudo -u foreman -H bundle install
-sudo -u foreman -H config/settings.yaml.example config/settings.yaml
+sudo -u $USER -H bundle config set --local path 'vendor/bundle'
+sudo -u $USER -H bundle install
+sudo -u $USER -H config/settings.yaml.example config/settings.yaml
 
-sudo -u foreman -H bash -c 'cat <<EOL > /home/foreman/foreman/config/database.yml
+sudo -u $USER -H bash -c 'cat <<EOL > /home/$USER/foreman/config/database.yml
 development:
   adapter: postgresql
   password: redhat
@@ -65,7 +82,7 @@ development:
   pool: 10
 EOL'
 
-sudo -u foreman -H bash -c 'cat <<EOL > /etc/postgresql/12/main/pg_hba.conf
+sudo -u $USER -H bash -c 'cat <<EOL > /etc/postgresql/12/main/pg_hba.conf
 # Allow local connections by the foreman user without a password
 #local   all             foreman                                trust
 # Alternatively, if you prefer password authentication
@@ -78,12 +95,12 @@ EOL'
 
 sudo systemctl reload postgresql
 
-sudo -u foreman -H curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-sudo -u foreman -H source ~/.nvm/nvm.sh
-sudo -u foreman -H nvm install 16.0.0
-sudo -u foreman -H nvm use 16.0.0
-sudo -u foreman -H nvm alias default 16.0.0
-sudo -u foreman -H npm install
-sudo -u foreman -H bundle exec rake db:migrate
-sudo -u foreman -H bundle exec rake permissions:reset password=redhat
-sudo -u foreman -H bundle exec foreman start
+sudo -u $USER -H curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+sudo -u $USER -H source ~/.nvm/nvm.sh
+sudo -u $USER -H nvm install 16.0.0
+sudo -u $USER -H nvm use 16.0.0
+sudo -u $USER -H nvm alias default 16.0.0
+sudo -u $USER -H npm install
+sudo -u $USER -H bundle exec rake db:migrate
+sudo -u $USER -H bundle exec rake permissions:reset password=redhat
+sudo -u $USER -H bundle exec foreman start
