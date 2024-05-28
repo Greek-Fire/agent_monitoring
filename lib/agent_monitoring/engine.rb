@@ -34,12 +34,11 @@ module AgentMonitoring
 
         # add menu entry
         sub_menu :top_menu, :plugin_template, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
-          menu :top_menu, :welcome, caption: N_('Agents Monitoring'), engine: AgentMonitoring::Engine
-        end
-          sub_menu :top_menu :inner_level, caption: N_('Agents'), engine: AgentMonitoring::Engine do
-          #menu :top_menu, :new_action, caption: N_('Agents'), engine: AgentMonitoring::Engine
+          #menu :top_menu, :welcome, caption: N_('Agents Monitoring'), engine: AgentMonitoring::Engine
+          sub_menu :top_menu :inner_level, caption: N_('Agents Monitoring'), engine: AgentMonitoring::Engine do
+            menu :top_menu, caption: N_('Agents One'), engine: AgentMonitoring::Engine
           end
-        #end       
+        end       
 
         # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
