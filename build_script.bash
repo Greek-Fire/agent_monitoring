@@ -55,7 +55,7 @@ sudo -u foreman -H bundle install
 sudo -u foreman -H config/settings.yaml.example config/settings.yaml
 
 sudo -u foreman -H bash -c 'cat <<EOL > /home/foreman/foreman/config/database.yml
-default: &default
+development:
   adapter: postgresql
   encoding: unicode
   pool: 5
