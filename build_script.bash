@@ -57,11 +57,12 @@ sudo -u foreman -H config/settings.yaml.example config/settings.yaml
 sudo -u foreman -H bash -c 'cat <<EOL > /home/foreman/foreman/config/database.yml
 development:
   adapter: postgresql
-  encoding: unicode
-  pool: 5
-  username: foreman
   password: redhat
   host: localhost
+  port: 5432
+  database: foreman
+  encoding: utf8
+  pool: 10
 EOL'
 
 sudo -u foreman -H bash -c 'cat <<EOL > /etc/postgresql/12/main/pg_hba.conf
