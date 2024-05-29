@@ -34,8 +34,8 @@ module AgentMonitoring
 
         # add menu entry
         sub_menu :top_menu, :hallas_automation, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
-          menu :top_menu, :agents, caption: N_('Agent Overview'), parent: :welcome, engine: AgentMonitoring::Engine
-          menu :top_menu, :agents, caption: N_('Agents'), parent: :welcome, engine: AgentMonitoring::Engine
+          menu :top_menu, :agents, caption: N_('Agent Overview'), parent: :hallas_automation, engine: AgentMonitoring::Engine
+          menu :top_menu, :agents, caption: N_('Agents'), parent: :hallas_automation, engine: AgentMonitoring::Engine
         end
 
         # add dashboard widget
