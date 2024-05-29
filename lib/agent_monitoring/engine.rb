@@ -15,7 +15,7 @@ module AgentMonitoring
       end
     end
 
-    initializer 'agent_monitoring.register_plugin', before: :finisher_hook do |_app|
+    initializer 'agent_monitoring.register_plugin', :before => :finisher_hook do |_app|
       Foreman::Plugin.register :agent_monitoring do
         requires_foreman '>= 3.7.0'
         register_gettext
@@ -25,24 +25,25 @@ module AgentMonitoring
 
         # Add permissions
         security_block :agent_monitoring do
-          permission :view_agent_monitoring, { agents: [:index] }
+          permission :view_agent_monitoring, { :'agent_monitoring/agents' => [:index] }
         end
 
-        # Add a new role called 'AgentMonitoring' if it doesn't exist
+        # Add a new role called 'Discovery' if it doesn't exist
         role 'AgentMonitoring', [:view_agent_monitoring]
 
-        # Add menu entry
+        # add menu entry
         sub_menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
-          menu :agents, caption: N_('Agents'), url_hash: { controller: 'agent_monitoring/agents', action: :index },  engine: AgentMonitoring::Engine 
+          menu :top_menu, :agents, caption: N_('Agents'), url_hash: { controller: 'agent_monitoring/agents', action: 'index' }, engine: AgentMonitoring::Engine  
         end
 
-        # Add dashboard widget
+        # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
       end
     end
 
     # Include concerns in this config.to_prepare block
     config.to_prepare do
+
       begin
         Host::Managed.send(:include, AgentMonitoring::HostExtensions)
         HostsHelper.send(:include, AgentMonitoring::HostsHelperExtensions)
