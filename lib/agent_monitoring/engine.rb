@@ -33,10 +33,10 @@ module AgentMonitoring
 
         # Add menu entry
         sub_menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), after: :hosts_menu do
-          menu :top_menu, :agents_monitoring, caption: N_('Agents Monitoring'), url_hash: { controller: :example, action: :index }
+          menu :top_menu, :agents_monitoring, caption: N_('Agents Monitoring') #, url_hash: { controller: :example, action: :index }
           sub_menu :top_menu, :inner_level, caption: N_('Inner Level') do
-            menu :top_menu, :agents_one, caption: N_('Agents One'), url_hash: { controller: :example, action: :index }
-            menu :top_menu, :agents_two, caption: N_('Agents Two'), url_hash: { controller: :example, action: :index }
+            menu :top_menu, :agents_one, caption: N_('Agents One')#, url_hash: { controller: :example, action: :index }
+            menu :top_menu, :agents_two, caption: N_('Agents Two')#, url_hash: { controller: :example, action: :index }
           end
         end
 
