@@ -25,17 +25,16 @@ module AgentMonitoring
 
         # Add permissions
         security_block :agent_monitoring do
-          permission :view_agent_monitoring, { :'agent_monitoring/example' => [:new_action],
-                                                      :'react' => [:index] }
+          permission :view_agent_monitoring, { :'agent_monitoring/agents' => [:index] }
         end
 
         # Add a new role called 'Discovery' if it doesn't exist
         role 'AgentMonitoring', [:view_agent_monitoring]
 
         # add menu entry
-        sub_menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
-          sub_menu :top_menu, :hallas_welcome, caption: N_('Agents Monitoring') do
-            menu :top_menu, :welcome, caption: N_('Agent One'), engine: AgentMonitoring::Engine  
+        sub_menu :top_menu, :agent_monitoring, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
+          sub_menu :top_menu, :agent_monitoring, caption: N_('Agents Monitoring') do
+            menu :top_menu, :agents, caption: N_('Agent One'), engine: AgentMonitoring::Engine  
           end
         end
 
