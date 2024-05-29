@@ -32,9 +32,9 @@ module AgentMonitoring
         role 'AgentMonitoring', [:view_agent_monitoring]
 
         # add menu entry
-        sub_menu :top_menu, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
+        sub_menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
           #sub_menu :hallas_automation, :one, caption: N_('Agents Monitoring') do
-          #  menu :one, :two, caption: N_('Agent One'), url_hash: { controller: 'agent_monitoring/agents', action: 'index' }, engine: AgentMonitoring::Engine  
+          menu :hallas_automation, :one, caption: N_('Agent One'), url_hash: { controller: 'agent_monitoring/agents', action: 'index' }, engine: AgentMonitoring::Engine  
           #end
         end
         
