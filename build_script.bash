@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export USER=foreman
+export FIP=10.0.2.15
 
 # Check if user is root
 if [[ $EUID -ne 0 ]]; then
@@ -50,7 +51,7 @@ if ! grep -qxF 'export BUNDLE_PATH=/home/$USER/foreman/vendor/bundle' /home/$USE
 fi
 
 if ! grep -qxF 'export BIND=10.0.2.15' /home/$USER/.bashrc; then
-    echo "export BIND=10.0.2.15" | tee -a /home/$USER/.bashrc
+    echo "export BIND=$FIP" | tee -a /home/$USER/.bashrc
 fi
 
 if ! grep -qxF "export WEBPACK_OPTS=\"--host \$BIND\"" /home/$USER/.bashrc; then
