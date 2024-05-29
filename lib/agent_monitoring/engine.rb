@@ -18,7 +18,6 @@ module ForemanPluginTemplate
     initializer 'foreman_plugin_template.register_plugin', :before => :finisher_hook do |_app|
       Foreman::Plugin.register :foreman_plugin_template do
         requires_foreman '>= 3.7.0'
-        register_gettext
 
         # Add Global files for extending foreman-core components and routes
         register_global_js_file 'global'
