@@ -25,7 +25,7 @@ module AgentMonitoring
 
         # Add permissions
         security_block :agent_monitoring do
-          permission :view_agent_monitoring, { :'agent_monitoring/agents' => [:index] }
+          permission :view_agent_monitoring, { :'agents' => [:index] }
         end
 
         # Add a new role called 'Discovery' if it doesn't exist
@@ -33,10 +33,8 @@ module AgentMonitoring
 
         # add menu entry
         sub_menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
-          menu :top_menu, :agents, caption: N_('Agents'), url_hash: { controller: 'agents', action: 'index' }, engine: AgentMonitoring::Engine  
+          menu :top_menu, :agents, caption: N_('Agents'), url_hash: { controller: :agents, action: :index }, engine: AgentMonitoring::Engine  
         end
-        
-        
 
         # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
