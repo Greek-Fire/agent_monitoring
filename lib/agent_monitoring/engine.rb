@@ -25,23 +25,27 @@ module AgentMonitoring
 
         # Add permissions
         security_block :agent_monitoring do
-          permission :view_agent_monitoring, {}
+          permission :view_agent_monitoring, { :'agent_monitoring/example' => [:new_action],
+                                                      :'react' => [:index] }
         end
 
-        # Add a new role called 'AgentMonitoring' if it doesn't exist
+        # Add a new role called 'Discovery' if it doesn't exist
         role 'AgentMonitoring', [:view_agent_monitoring]
 
-        # Add menu entry
-        menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu
+        # add menu entry
+        sub_menu :top_menu, :plugin_template, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
+          menu :top_menu, :welcome, caption: N_('Agent Monitoring'), engine: AgentMonitoring::Engine
+          menu :top_menu, :new_action, caption: N_('Agent One'), :parent => :welcome, engine: AgentMonitoring::Engine
+        end
 
-
-        # Add dashboard widget
+        # add dashboard widget
         widget 'agent_monitoring_widget', name: N_('Foreman plugin template widget'), sizex: 4, sizey: 1
       end
     end
 
     # Include concerns in this config.to_prepare block
     config.to_prepare do
+
       begin
         Host::Managed.send(:include, AgentMonitoring::HostExtensions)
         HostsHelper.send(:include, AgentMonitoring::HostsHelperExtensions)
