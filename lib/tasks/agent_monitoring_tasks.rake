@@ -10,6 +10,24 @@ namespace :agent_monitoring do
   end
 end
 
+namespace :db do
+  desc "Populate the agents table with sample data"
+  task populate_agents: :environment do
+    require 'faker'
+
+    50.times do
+      Agent.create(
+        network: Faker::Internet.ip_v4_address,
+        status: %w[active inactive pending].sample,
+        agent: Faker::Internet.username,
+        host: Faker::Internet.domain_name
+      )
+    end
+
+    puts "Added 50 sample agents."
+  end
+end
+
 # Tests
 namespace :test do
   desc 'Test AgentMonitoring'
