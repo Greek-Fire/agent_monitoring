@@ -1,8 +1,7 @@
 module AgentMonitoring
     class AgentsController < ApplicationController
       def index
-        # For now, we'll just render a simple text response
-        render plain: "This is the Agents index page"
+        @agents = Agent.fetch(params)# For now, we'll just render a simple text response
       end
     end
   end

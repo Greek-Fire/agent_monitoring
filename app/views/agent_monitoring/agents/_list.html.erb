@@ -1,0 +1,22 @@
+<table class="<%= table_css_classes %>">
+<table>
+  <thead>
+    <tr>
+      <th>Network</th>
+      <th>Status</th>
+      <th>Agent</th>
+      <th>Host</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @agents.each do |agent| %>
+      <tr>
+        <td><%= agent.network %></td>
+        <td><%= agent.status %></td>
+        <td><%= agent.agent %></td>
+        <td><%= agent.host %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate_with_info @agents %>

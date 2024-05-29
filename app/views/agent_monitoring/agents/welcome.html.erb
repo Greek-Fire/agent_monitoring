@@ -1,0 +1,8 @@
+<% content_for(:title, _("Agents")) %>
+<% description =  _("Add the agent to each host.") %>
+<%= react_component('EmptyState', {
+                                    :icon => 'globe',
+                                    :iconType => 'fa',
+                                    :header => _('Agent'),
+                                    :description => description,
+                                  }) %>
