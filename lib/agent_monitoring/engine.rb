@@ -25,7 +25,7 @@ module AgentMonitoring
 
         # Add permissions
         security_block :agent_monitoring do
-          permission :view_agent_monitoring, { :agent_monitoring/agents => %i[index auto_complete_search] }
+          permission :view_agent_monitoring, { :'agent_monitoring/agents' => %i[index auto_complete_search] }
         end
 
         # Add a new role called 'Discovery' if it doesn't exist
