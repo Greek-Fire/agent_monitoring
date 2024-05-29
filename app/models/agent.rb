@@ -5,7 +5,7 @@ class Agent < ApplicationRecord
   scoped_search on: :host
 
   def self.fetch(params)
-    list = select_counts
+    list = self
       .with_counts
       .search_for(params[:search])
       .order(params[:order])
