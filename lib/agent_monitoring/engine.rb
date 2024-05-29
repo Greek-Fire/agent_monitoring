@@ -40,7 +40,7 @@ module AgentMonitoring
         #end
 
         menu :top_menu, :hallas_automation, icon: 'pficon pficon-enterprise', caption: N_('Hallas Automation'), after: :hosts_menu do
-          submenu :agents_monitoring, caption: N_('Agents Monitoring') do
+          sub_menu :agents_monitoring, caption: N_('Agents Monitoring') do
             menu :agents_one, caption: N_('Agents One')
             menu :agents_two, caption: N_('Agents Two')
           end
