@@ -35,6 +35,8 @@ module AgentMonitoring
         # add menu entry
         sub_menu :top_menu, :hallas_automation, caption: N_('Hallas Automation'), icon: 'pficon pficon-enterprise', after: :hosts_menu do
           menu :welcome, :agents_monitoring, caption: N_('Agents Monitoring'), engine: AgentMonitoring::Engine
+          menu :top_menu, :new_action, caption: N_('Agent One'), :parent => :welcome, engine: AgentMonitoring::Engine
+
           
         end
 
