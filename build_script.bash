@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export USER=foreman
-export FIP=10.0.2.15
+export FIP=192.168.2.229
 
 # Check if user is root
 if [[ $EUID -ne 0 ]]; then
@@ -13,6 +13,9 @@ fi
 sudo apt-get update
 sudo apt-get install -y \
   ruby2.7 \
+  ruby-bundler \
+  libvirt-dev \
+  libsystemd-dev \
   ruby2.7-dev \
   build-essential \
   libssl-dev \
